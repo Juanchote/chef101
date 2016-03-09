@@ -1,0 +1,5 @@
+sudo knife role from file chef101_node001.rb
+sudo knife role from file chef101_node002.rb
+
+sudo knife bootstrap 192.168.33.101 -E development -N chef101_node_001 --no-host-key-verify -x vagrant --sudo --run-list="role[chef101_node001]"
+sudo knife bootstrap 192.168.33.102 -E development -N chef101_node_002 --no-host-key-verify -x vagrant --sudo --run-list="role[chef101_node002]"
