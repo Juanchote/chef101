@@ -31,7 +31,7 @@ Vagrant.configure(2) do |config|
   config.vm.define 'node_002' do |node|
     config.vm.network "forwarded_port", guest: 27017, host: 27017, auto_correct: true
     config.vm.network "private_network", ip: "192.168.33.102"
-    config.vm.synced_folder 'node_001', '/vagrant', create: true
+    config.vm.synced_folder 'node_002', '/vagrant', create: true
   end
 
   # Create a private network, which allows host-only access to the machine
@@ -76,4 +76,9 @@ Vagrant.configure(2) do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
   SHELL
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    vb.customize ["guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000]
+  end
 end
